@@ -120,6 +120,10 @@ impl Layer {
         }
         SpatialRef::from_c_obj(c_obj)
     }
+
+    pub fn reset_reading(&self) {
+        unsafe { gdal_sys::OGR_L_ResetReading(self.c_layer) };
+    }
 }
 
 pub struct FeatureIterator<'a> {

@@ -259,3 +259,13 @@ fn test_write_features() {
     assert_eq!(ft.field("Value").unwrap().into_real(), Some(45.78));
     assert_eq!(ft.field("Int_value").unwrap().into_int(), Some(1));
 }
+
+#[test]
+fn test_reset_reading() {
+    let mut ds = Dataset::open(fixture!("roads.geojson")).unwrap();
+    let layer = ds.layer(0).unwrap();
+    let num_features = layer.features().count();
+    assert!(num_features > 0);
+    layer.reset_reading();
+    assert_eq!(layer.features().count(), num_features);
+}
